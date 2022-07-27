@@ -9,8 +9,9 @@ import java.util.List;
 
 // Обработка всех исключений, связанных с работой с базой данных должна находиться в dao
 public class UserDaoJDBCImpl implements UserDao {
+    private final Connection connector;
     public UserDaoJDBCImpl() {
-
+        this.connector = getMySQLConnection();
     }
     // Создание таблицы для User(ов) - не должна приводить к исключению, если такая таблица уже существует
     public void createUsersTable() {
@@ -91,33 +92,27 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
     // Получение всех User(ов) из таблицы
-    public List<User> getAllUsers() throws SQLException {
-        List<User> list = null;
-        try (Connection connection = Util.getConnection();) {
-            try (Statement statement = Util.getConnection().createStatement()) {
-                ResultSet resultSet = statement.executeQuery("SELECT name, lastName, age FROM users");
-                list = new ArrayList<>();
-
-                while (resultSet.next()) {
-                    User user = new User();
-                    user.setName(resultSet.getString("name"));
-                    user.setLastName(resultSet.getString("lastName"));
-                    user.setAge(resultSet.getByte("age"));
-                    list.add(user);
-                }
-                System.out.println(list);
-                connection.commit();
-            } catch (SQLException ex) {
-                connection.rollback();
-                ex.printStackTrace();
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        String SQL = "select * from users";
+        try (Statement statement = connector.createStatement()) {
+            ResultSet set = statement.executeQuery(SQL);
+            while (set.next()) {
+                User user = new User();
+                user.setId(set.getLong(1));
+                user.setName(set.getString(2));
+                user.setLastName(set.getString(3));
+                user.setAge(set.getByte(4));
+                users.add(user);
             }
+            connector.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            return null;
         }
-        return list;
+        return users;
     }
+
     // Очистка содержания таблицы
     public void cleanUsersTable() {
         try (Connection connection = Util.getConnection();) {
