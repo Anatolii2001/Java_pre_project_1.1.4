@@ -15,6 +15,7 @@ public class Util {
     private static final String password = "Fred_1304";
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
+        this.connector = Util.getConnection();
         Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

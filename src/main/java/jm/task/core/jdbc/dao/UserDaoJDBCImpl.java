@@ -13,6 +13,11 @@ public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
         this.connector = getMySQLConnection();
     }
+
+    private Connection getMySQLConnection() {
+        return null;
+    }
+
     // Создание таблицы для User(ов) - не должна приводить к исключению, если такая таблица уже существует
     public void createUsersTable() {
         String s = "CREATE TABLE IF NOT EXISTS users (id mediumint NOT NULL auto_increment, name varchar(50) NOT NULL, lastName varchar(60) NOT NULL, age tinyint, primary key(id))";
