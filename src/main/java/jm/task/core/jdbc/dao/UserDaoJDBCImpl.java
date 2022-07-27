@@ -10,12 +10,8 @@ import java.util.List;
 // Обработка всех исключений, связанных с работой с базой данных должна находиться в dao
 public class UserDaoJDBCImpl implements UserDao {
     private final Connection connector;
-    public UserDaoJDBCImpl() {
-        this.connector = getMySQLConnection();
-    }
-
-    private Connection getMySQLConnection() {
-        return null;
+    public UserDaoJDBCImpl() throws SQLException, ClassNotFoundException {
+        this.connector = Util.getConnection();
     }
 
     // Создание таблицы для User(ов) - не должна приводить к исключению, если такая таблица уже существует
