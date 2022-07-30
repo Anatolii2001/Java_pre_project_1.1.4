@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Java_pre_project_1.1.3" />
+        <module name="Java_pre_project_1.1.4" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Java_pre_project_1.1.3" target="17" />
+      <module name="Java_pre_project_1.1.4" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

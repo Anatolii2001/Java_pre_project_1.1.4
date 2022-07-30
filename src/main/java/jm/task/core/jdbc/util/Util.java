@@ -9,7 +9,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Util {
-    // реализуйте настройку соединения с БД
+    private Util() {
+
+    }
+    private static Util util = new Util();
+    public static Util getInstance() {
+
+        return util;
+    }
+
     private static final String url = "jdbc:mysql://localhost:3306/mysql";
     private static final String username = "root";
     private static final String password = "Fred_1304";
