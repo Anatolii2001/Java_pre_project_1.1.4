@@ -17,7 +17,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
        Session session = Util.getSession();
        Transaction transaction = null;
-       final String SQL = "CREATE TABLE IF NOT EXISTS test.user (Id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT," + "name VARCHAR(30), lastname VARCHAR(30), age TINYINT)";
+       final String SQL = "CREATE TABLE IF NOT EXISTS users (Id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT," + "name VARCHAR(30), lastname VARCHAR(30), age TINYINT)";
        try {
            transaction = session.beginTransaction();
            session.createSQLQuery(SQL).executeUpdate();
@@ -41,7 +41,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("DROP TABLE IF EXISTS test.user").executeUpdate();
+            session.createSQLQuery("DROP TABLE IF EXISTS users").executeUpdate();
             transaction.commit();
             System.out.println("Table has been deleted");
         } catch (RuntimeException e) {
