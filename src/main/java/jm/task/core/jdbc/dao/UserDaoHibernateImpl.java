@@ -41,7 +41,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createSQLQuery("DROP TABLE IF EXISTS users").executeUpdate();
+            session.createSQLQuery("DROP TABLE IF EXISTS test.user").executeUpdate();
             transaction.commit();
             System.out.println("Table has been deleted");
         } catch (RuntimeException e) {
